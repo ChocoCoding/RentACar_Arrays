@@ -1,7 +1,5 @@
 package org.example.service;
-
 import org.example.model.Client;
-
 import java.util.ArrayList;
 
 public interface IClientService {

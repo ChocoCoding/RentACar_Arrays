@@ -1,5 +1,6 @@
 package org.example.view;
 
+import org.example.controller.CarController;
 import org.example.controller.ClientController;
 
 import java.util.InputMismatchException;
@@ -8,9 +9,12 @@ import java.util.Scanner;
 public class Dialog {
 
     private ClientController clientController;
+    private CarController carController;
     private Scanner scanner;
     public Dialog() {
         clientController = new ClientController();
+        carController = new CarController();
+
     }
 
 
@@ -28,7 +32,7 @@ public class Dialog {
                 if (choice == 1) {
                     clientManager();
                 } else if (choice == 2) {
-                    //TODO
+                    carManager();
                 } else if (choice == 3) {
                     //TODO
                 } else if (choice == 4) {
@@ -50,6 +54,55 @@ public class Dialog {
                 System.err.println(e.getMessage());
             }
         } while (true);
+    }
+
+    private void carManager() {
+        do {
+            System.out.println("\n************************** Client Manager ********************************");
+            System.out.println("\n\t1. Add car.\t\t\t\t4. Search Car.");
+            System.out.println("\n\t2. Remove Car.\t\t\t5. See All Cars.");
+            System.out.println("\n\t3. Update Car.\t\t\t0. Back.");
+            System.out.println("\n**************************************************************************");
+            int choice = scanner.nextInt();
+            try {
+                if(choice == 1){
+                    scanner.nextLine();
+                    System.out.println("License plate: ");
+                    String licensePlate = scanner.nextLine();
+                    carController.add(licensePlate);
+                } else if (choice == 2) {
+                    System.out.println("Car ID: ");
+                    int id = scanner.nextInt();
+                    carController.deleteById((long) id);
+                } else if (choice == 3) {
+                    System.out.println(carController.findAll());
+                    System.out.println("Car ID: ");
+                    int id = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("License Plate: ");
+                    String licensePlate = scanner.nextLine();
+                    carController.update((long)id, licensePlate);
+                } else if (choice == 4) {
+                    scanner.nextLine();
+                    System.out.println("License Plate: ");
+                    String licensePlate = scanner.nextLine();
+                    System.out.println(carController.findByLicensePlate(licensePlate));
+                } else if (choice == 5) {
+                    System.out.println(carController.findAll());
+                } else if(choice==0) {
+                    getStarted();
+                } else {
+                    System.err.println("[ERROR] Your option is incorrect!! Try again!!");
+                }
+
+            } catch (InputMismatchException e) {
+                System.err.println("[ERROR] You must type a number!!!");
+                scanner.next();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        } while (true);
+
     }
 
     public void clientManager(){

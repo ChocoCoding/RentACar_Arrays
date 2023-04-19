@@ -8,6 +8,8 @@ public class RentalOffice {
     private Integer feeForDelivery;
     private List<Car> cars;
 
+
+
     public void setCars(List<Car> cars) {
         this.cars = cars;
     }

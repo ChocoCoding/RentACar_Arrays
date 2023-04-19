@@ -15,7 +15,6 @@ public class CarController {
     public void add(String licensePlate){
         Car car = new Car(licensePlate);
         service.add(car);
-
     }
 
     public void deleteById(Long id){

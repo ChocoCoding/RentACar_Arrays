@@ -6,6 +6,8 @@ public class Car {
     private RentalOffice rentalOfficeAssigned;
 
 
+//TODO añadir rentalOffice a todos los constructores
+// TODO Cada vez que se cree un coche, se tiene que añadir al array
 
     public Car(Long id, String licensePlate) {
         this.id = id;

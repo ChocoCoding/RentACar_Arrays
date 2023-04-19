@@ -6,11 +6,7 @@ import java.util.ArrayList;
 
 public class ClientRepository implements IClientRepository{
 
-    private final ArrayList<Client> clients;
-
-    public ClientRepository() {
-        clients = new ArrayList<>();
-    }
+    private static final ArrayList<Client> clients = new ArrayList<>();
 
     public void add(Client client){
         client.setId(nextIdAvailable());

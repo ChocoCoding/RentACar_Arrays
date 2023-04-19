@@ -6,7 +6,6 @@ import org.example.repository.ICarRepository;
 import java.util.List;
 
 public class CarServiceImpl implements ICarService{
-
     private ICarRepository repository;
 
     public CarServiceImpl() {

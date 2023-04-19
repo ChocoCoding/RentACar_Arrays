@@ -8,11 +8,10 @@ import java.util.List;
 
 public class RentalOfficeRepository implements IRentalOfficeRepository{
     List<RentalOffice> rentalOffices;
-    CarRepository carRepository =  new CarRepository();
-
-    public RentalOfficeRepository() {
+/*
+   // public RentalOfficeRepository() {
         rentalOffices = new ArrayList<>();
-    }
+    }*/
 
 
     @Override
@@ -40,19 +39,7 @@ public class RentalOfficeRepository implements IRentalOfficeRepository{
         return rentalOffices;
     }
 
-    //Add car to a RentalOffice
-    @Override
-    public void add(Car car, RentalOffice rentalOffice) {
-        for (Car carElement: carRepository.findAll()) {
-            if (carElement.getLicensePlate().equals(car.getLicensePlate())){
-                if (!isAssigned(car)){
-                    carElement.setRentalOfficeAssigned(rentalOffice);
-                    rentalOffice.getCars().add(carElement);
-                }else System.out.println("This car already has an Office assigned");
-            }
-        }
 
-    }
 
     @Override
     public void delete(Car car, RentalOffice rentalOffice) {
@@ -70,7 +57,5 @@ public class RentalOfficeRepository implements IRentalOfficeRepository{
         return rentalOffice.getCars();
     }
 
-    public boolean isAssigned(Car car){
-        return car.getRentalOfficeAssigned() != null;
-    }
+
 }

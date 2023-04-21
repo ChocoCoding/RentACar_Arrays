@@ -1,33 +1,34 @@
 package org.example.model;
 
+import org.example.repository.RentalOfficeRepository;
+
 public class Car {
     private Long id;
     private String licensePlate;
-    private RentalOffice rentalOfficeAssigned;
+    private RentalOffice rentalOffice;
 
-
-//TODO añadir rentalOffice a todos los constructores
-// TODO Cada vez que se cree un coche, se tiene que añadir al array
-
-    public Car(Long id, String licensePlate) {
+    public Car(Long id, String licensePlate, RentalOffice rentalOffice) {
         this.id = id;
         this.licensePlate = licensePlate;
+        this.rentalOffice = rentalOffice;
     }
 
-    public Car(String licensePlate) {
+    //TODO ¿El coche se añade al array de coches de RentalOffice cuando lo creo o cuando lo añado?
+    public Car(String licensePlate, RentalOffice rentalOffice) {
         this.licensePlate = licensePlate;
+        this.rentalOffice = rentalOffice;
     }
 
     public Car(Long id){
         this.id = id;
     }
 
-    public RentalOffice getRentalOfficeAssigned() {
-        return rentalOfficeAssigned;
+    public RentalOffice getRentalOffice() {
+        return rentalOffice;
     }
 
-    public void setRentalOfficeAssigned(RentalOffice rentalOfficeAssigned) {
-        this.rentalOfficeAssigned = rentalOfficeAssigned;
+    public void setRentalOffice(RentalOffice rentalOffice) {
+        this.rentalOffice = rentalOffice;
     }
 
     public Long getId() {
@@ -51,6 +52,7 @@ public class Car {
         final StringBuilder sb = new StringBuilder();
         sb.append("ID Car: ").append(id).append("\t");
         sb.append("License Plate: ").append(licensePlate).append("\n");
+        sb.append("Rental Office: ").append(rentalOffice).append("\n");
         return sb.toString();
     }
 }

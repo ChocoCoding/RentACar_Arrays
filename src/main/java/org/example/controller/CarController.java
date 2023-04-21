@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.model.Car;
+import org.example.model.RentalOffice;
 import org.example.service.CarServiceImpl;
 import org.example.service.ICarService;
 import java.util.List;
@@ -12,8 +13,8 @@ public class CarController {
         service = new CarServiceImpl();
     }
 
-    public void add(String licensePlate){
-        Car car = new Car(licensePlate);
+    public void add(String licensePlate, RentalOffice rentalOffice){
+        Car car = new Car(licensePlate,rentalOffice);
         service.add(car);
     }
 
@@ -29,8 +30,8 @@ public class CarController {
         return service.findByLicensePlate(licensePlate);
     }
 
-    public void update(Long id, String licensePlate){
-        Car car = new Car(id, licensePlate);
+    public void update(Long id, String licensePlate, RentalOffice rentalOffice){
+        Car car = new Car(id, licensePlate, rentalOffice);
         service.update(car);
     }
 

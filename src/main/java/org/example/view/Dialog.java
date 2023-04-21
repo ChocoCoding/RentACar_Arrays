@@ -2,6 +2,7 @@ package org.example.view;
 
 import org.example.controller.CarController;
 import org.example.controller.ClientController;
+import org.example.model.RentalOffice;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -69,7 +70,12 @@ public class Dialog {
                     scanner.nextLine();
                     System.out.println("License plate: ");
                     String licensePlate = scanner.nextLine();
-                    carController.add(licensePlate);
+                    System.out.println("Address: ");
+                    String address = scanner.nextLine();
+                    System.out.println("Fee for delivery: ");
+                    Integer feeForDelivery = scanner.nextInt();
+                    RentalOffice rentalOffice = new RentalOffice(address,feeForDelivery);
+                    carController.add(licensePlate,rentalOffice);
                 } else if (choice == 2) {
                     System.out.println("Car ID: ");
                     int id = scanner.nextInt();
@@ -81,7 +87,12 @@ public class Dialog {
                     scanner.nextLine();
                     System.out.println("License Plate: ");
                     String licensePlate = scanner.nextLine();
-                    carController.update((long)id, licensePlate);
+                    System.out.println("Address: ");
+                    String address = scanner.nextLine();
+                    System.out.println("Fee for delivery: ");
+                    Integer feeForDelivery = scanner.nextInt();
+                    RentalOffice rentalOffice = new RentalOffice(address,feeForDelivery);
+                    carController.update((long)id, licensePlate,rentalOffice);
                 } else if (choice == 4) {
                     scanner.nextLine();
                     System.out.println("License Plate: ");

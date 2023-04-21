@@ -7,9 +7,7 @@ import java.util.List;
 
 public interface IRentalOfficeRepository {
     void add(RentalOffice rentalOffice);
-    void deleteByAddress(String address);
+    void deleteById(Long id);
     List<RentalOffice> findAll();
-    void add(Car car, RentalOffice rentalOffice);
-    void delete(Car car, RentalOffice rentalOffice);
-    List<Car> findAllCars(RentalOffice rentalOffice);
+    Long nextIdAvailable();
 }

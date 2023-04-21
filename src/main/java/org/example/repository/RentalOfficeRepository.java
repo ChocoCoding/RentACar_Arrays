@@ -1,6 +1,5 @@
 package org.example.repository;
 
-import org.example.model.Car;
 import org.example.model.RentalOffice;
 
 import java.util.ArrayList;
@@ -8,30 +7,40 @@ import java.util.List;
 
 public class RentalOfficeRepository implements IRentalOfficeRepository{
     List<RentalOffice> rentalOffices;
-/*
-   // public RentalOfficeRepository() {
+
+    public RentalOfficeRepository(){
         rentalOffices = new ArrayList<>();
-    }*/
-
-
-    @Override
-    public void add(RentalOffice rentalOffice) {
-
-        rentalOffices.add(rentalOffice);
     }
 
     @Override
-    public void deleteByAddress(String address) {
-
+    public void add(RentalOffice rentalOffice) {
+        //Checking if the office´s array isn´t empty
         if (!rentalOffices.isEmpty()){
-            for (RentalOffice rentalOffice:rentalOffices) {
-                System.out.println(rentalOffice);
-                if (rentalOffice.getAddress().equalsIgnoreCase(address)){
-                    rentalOffices.remove(rentalOffice);
-                }else System.out.println("Office doesn´t exist");
-            }
-        }else System.out.println("There are not offices registered");
+            //Checking if the office ID exists
+           if (findById(rentalOffice.getId()) != null){
+               //Setting id for the office and adding it to the array
+               //rentalOffice.setId(nextIdAvailable());
+               rentalOffices.add(rentalOffice);
+           }
+        }
+    }
 
+    public RentalOffice findById(Long id){
+        for (RentalOffice rentalOffice: rentalOffices) {
+            if (rentalOffice.getId().equals(id)){
+                return rentalOffice;
+            }else return null;
+        }
+        return null;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        if (!rentalOffices.isEmpty()){
+            if (findById(id) != null){
+                rentalOffices.remove(findById(id));
+            }
+        }else System.out.println("The id " + id +" + isn´t assigned to any office");
     }
 
     @Override
@@ -39,23 +48,10 @@ public class RentalOfficeRepository implements IRentalOfficeRepository{
         return rentalOffices;
     }
 
-
-
     @Override
-    public void delete(Car car, RentalOffice rentalOffice) {
-        if (isAssigned(car)){
-            rentalOffice.getCars().remove(car);
-        }else System.out.println("This car is not assigned to: " + car.getRentalOfficeAssigned());
+    public Long nextIdAvailable() {
+        if (!rentalOffices.isEmpty()){
+            return rentalOffices.get(rentalOffices.size()-1).getId() + 1;
+        }else return 1L;
     }
-
-
-    @Override
-    public List<Car> findAllCars(RentalOffice rentalOffice) {
-        for (Car carElement : rentalOffice.getCars()) {
-            System.out.println(carElement);
-        }
-        return rentalOffice.getCars();
-    }
-
-
 }

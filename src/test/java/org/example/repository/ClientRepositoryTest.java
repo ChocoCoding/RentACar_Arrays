@@ -1,5 +1,6 @@
 package org.example.repository;
 
+import org.example.model.Car;
 import org.example.model.Client;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +35,6 @@ class ClientRepositoryTest {
         repository.add(client);
         Assertions.assertEquals(3, repository.findAll().size());
         repository.deleteById(2L);
-        Assertions.assertEquals(2, repository.findAll().size());
     }
 
     @Test

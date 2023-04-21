@@ -10,4 +10,5 @@ public interface IRentalOfficeRepository {
     void deleteById(Long id);
     List<RentalOffice> findAll();
     Long nextIdAvailable();
+    RentalOffice findByAddress(String address);
 }

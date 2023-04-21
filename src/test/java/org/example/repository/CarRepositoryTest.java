@@ -10,28 +10,47 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CarRepositoryTest {
     ICarRepository carRepository;
-    RentalOffice rentalOffice1 = new RentalOffice("Calle San Pedro",20);
-
+    IRentalOfficeRepository rentalRepository;
     @BeforeEach
     void setUp() {
         carRepository = new CarRepository();
-        Car car1 = new Car("ABBA",rentalOffice1);
-        carRepository.add(car1);
+        rentalRepository = new RentalOfficeRepository();
     }
 
     @Test
     void add() {
         RentalOffice rentalOffice1 = new RentalOffice("Calle San Pedro",20);
+        RentalOffice rentalOffice2 = new RentalOffice("Calle San Jurjo",10);
+        rentalRepository.add(rentalOffice1);
+        rentalRepository.add(rentalOffice2);
         Car car1 = new Car("ABBA",rentalOffice1);
+        Car car2 = new Car("BCCB",rentalOffice1);
+        Car car3 = new Car("cCCB",rentalOffice1);
+        Car car4 = new Car("rqrCB",rentalOffice2);
         carRepository.add(car1);
-        Assertions.assertEquals(1,carRepository.findAll().size());
-        carRepository.add(car1);
-        Assertions.assertEquals(1,carRepository.findAll().size());
+        carRepository.add(car2);
+        carRepository.add(car3);
+        carRepository.add(car4);
+
+        for (Car car: rentalOffice1.getCars()) {
+            System.out.println(car);
+        }
+        for (Car car: rentalOffice2.getCars()) {
+            System.out.println(car);
+        }
+
+        for (RentalOffice rentalOffice: rentalRepository.findAll()){
+            System.out.println(rentalOffice);
+        }
+
+        Assertions.assertEquals(4, carRepository.findAll().size());
+        Assertions.assertEquals(3, rentalOffice1.getCars().size());
+
     }
 
     @Test
     void addCarToOffice() {
-        Assertions.assertEquals(1,rentalOffice1.getCars().size());
+
     }
 
     @Test

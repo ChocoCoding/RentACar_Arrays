@@ -14,20 +14,31 @@ public class RentalOfficeRepository implements IRentalOfficeRepository{
 
     @Override
     public void add(RentalOffice rentalOffice) {
-        //Checking if the office´s array isn´t empty
-        if (!rentalOffices.isEmpty()){
             //Checking if the office ID exists
-           if (findById(rentalOffice.getId()) != null){
+           if (findByAddress(rentalOffice.getAddress()) != null){
+               rentalOffice.setId(nextIdAvailable());
                //Setting id for the office and adding it to the array
                //rentalOffice.setId(nextIdAvailable());
                rentalOffices.add(rentalOffice);
+        }else {
+               rentalOffice.setId(nextIdAvailable());
+               rentalOffices.add(rentalOffice);
            }
-        }
     }
 
     public RentalOffice findById(Long id){
         for (RentalOffice rentalOffice: rentalOffices) {
             if (rentalOffice.getId().equals(id)){
+                return rentalOffice;
+            }else return null;
+        }
+        return null;
+    }
+
+    @Override
+    public RentalOffice findByAddress(String address) {
+        for (RentalOffice rentalOffice: rentalOffices) {
+            if (rentalOffice.getAddress().equals(address)){
                 return rentalOffice;
             }else return null;
         }
@@ -54,4 +65,6 @@ public class RentalOfficeRepository implements IRentalOfficeRepository{
             return rentalOffices.get(rentalOffices.size()-1).getId() + 1;
         }else return 1L;
     }
+
+
 }

@@ -4,30 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RentalOffice {
+    private static Long count = 0L;
     private Long id;
     private String address;
     private Integer feeForDelivery;
     private List<Car> cars;
-    
+
+    public RentalOffice(Long id){
+        this.id = id;
+    }
+
     public RentalOffice(Long id,String address, Integer feeForDelivery){
         this.id = id;
         this.address = address;
         this.feeForDelivery = feeForDelivery;
-    }
 
+    }
 
     public RentalOffice(String address, Integer feeForDelivery){
+        this.cars = new ArrayList<>();
         this.address = address;
         this.feeForDelivery = feeForDelivery;
-        this.cars = new ArrayList<>();
     }
 
-    public RentalOffice(Integer feeForDelivery){
-        this.feeForDelivery = feeForDelivery;
-    }
+
     public List<Car> getCars() {
         return cars;
     }
+
     public void setCars(List<Car> cars) {
         this.cars = cars;
     }

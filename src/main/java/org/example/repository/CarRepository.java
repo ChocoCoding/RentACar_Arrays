@@ -15,17 +15,12 @@ public class CarRepository implements ICarRepository{
     @Override
     public void add(Car car) {
             //Comprobamos si la matricula existe en el array de coches
-            //Si no existe añadimos el coche al array de coches y al de la oficina¡
             if (findByLicensePlate(car.getLicensePlate()) == null){
                 car.setId(nextIdAvailable());
                 cars.add(car);
-                addCarToOffice(car);
             }else System.out.println("La matricula " + car.getLicensePlate() + " ya está registrada");
     }
 
-    public void addCarToOffice(Car car) {
-            car.getRentalOffice().getCars().add(car);
-    }
 
     @Override
     public void deleteById(Long id) {
@@ -52,7 +47,7 @@ public class CarRepository implements ICarRepository{
                 for (Car car: cars) {
                     if (car.getId().equals(id)){
                         return car;
-                    }else return null;
+                    }else System.out.println("No se ha podido encontrar la id: " + id);
                 }
             }
         return null;
@@ -64,7 +59,7 @@ public class CarRepository implements ICarRepository{
                 for (Car car: cars) {
                     if (car.getLicensePlate().equalsIgnoreCase(licensePlate)){
                         return car;
-                    }else return null;
+                    }
                 }
             }
             return null;
@@ -73,6 +68,7 @@ public class CarRepository implements ICarRepository{
     @Override
     public void update(Car car) {
     if (findById(car.getId())!= null){
+        Car carToUpdate = findById(car.getId());
         findById(car.getId()).setLicensePlate(car.getLicensePlate());
         findById(car.getId()).setRentalOffice(car.getRentalOffice());
     }

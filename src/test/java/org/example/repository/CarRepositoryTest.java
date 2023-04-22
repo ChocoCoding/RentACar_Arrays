@@ -10,40 +10,36 @@ import org.junit.jupiter.api.Test;
 class CarRepositoryTest {
     ICarRepository carRepository;
     IRentalOfficeRepository rentalRepository;
+    RentalOffice rentalOffice1 = new RentalOffice("Calle San Pedro",20);
+    RentalOffice rentalOffice2 = new RentalOffice("Calle San Jurjo",10);
     @BeforeEach
     void setUp() {
         carRepository = new CarRepository();
         rentalRepository = new RentalOfficeRepository();
+        rentalRepository.add(rentalOffice1);
+        rentalRepository.add(rentalOffice2);
+        Car.newCar("ABABA",rentalOffice1);
+        Car.newCar("CBBC",rentalOffice1);
+        Car.newCar("DFFD",rentalOffice1);
+        Car.newCar("DFFD",rentalOffice2);
     }
 
     @Test
     void add() {
-        RentalOffice rentalOffice1 = new RentalOffice("Calle San Pedro",20);
-        RentalOffice rentalOffice2 = new RentalOffice("Calle San Jurjo",10);
-        rentalRepository.add(rentalOffice1);
-        rentalRepository.add(rentalOffice2);
-        Car car1 = new Car("ABBA",rentalOffice1);
-        Car car2 = new Car("BCCB",rentalOffice1);
-        Car car3 = new Car("cCCB",rentalOffice1);
-        Car car4 = new Car("rqrCB",rentalOffice2);
+        Car car1 = Car.newCar("ABBA",rentalOffice1);
+        carRepository.add(rentalOffice1.getCars().get(0));
+        carRepository.add(rentalOffice1.getCars().get(1));
+        carRepository.add(rentalOffice1.getCars().get(2));
+        carRepository.add(rentalOffice2.getCars().get(0));
         carRepository.add(car1);
-        carRepository.add(car2);
-        carRepository.add(car3);
-        carRepository.add(car4);
 
-        for (Car car: rentalOffice1.getCars()) {
+
+
+        carRepository.deleteById(1L);
+        for (Car car: carRepository.findAll()) {
             System.out.println(car);
         }
-        for (Car car: rentalOffice2.getCars()) {
-            System.out.println(car);
-        }
-
-        for (RentalOffice rentalOffice: rentalRepository.findAll()){
-            System.out.println(rentalOffice);
-        }
-
-        Assertions.assertEquals(4, carRepository.findAll().size());
-        Assertions.assertEquals(3, rentalOffice1.getCars().size());
+        Assertions.assertEquals(3, carRepository.findAll().size());
 
     }
 

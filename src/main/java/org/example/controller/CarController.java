@@ -14,8 +14,7 @@ public class CarController {
     }
 
     public void add(String licensePlate, RentalOffice rentalOffice){
-        Car car = new Car(licensePlate,rentalOffice);
-        service.add(car);
+        service.add(Car.newCar(licensePlate,rentalOffice));
     }
 
     public void deleteById(Long id){
@@ -34,5 +33,4 @@ public class CarController {
         Car car = new Car(id, licensePlate, rentalOffice);
         service.update(car);
     }
-
 }

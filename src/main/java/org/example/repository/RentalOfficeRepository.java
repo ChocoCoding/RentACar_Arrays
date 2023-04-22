@@ -1,5 +1,6 @@
 package org.example.repository;
 
+import org.example.model.Car;
 import org.example.model.RentalOffice;
 
 import java.util.ArrayList;
@@ -14,35 +15,13 @@ public class RentalOfficeRepository implements IRentalOfficeRepository{
 
     @Override
     public void add(RentalOffice rentalOffice) {
-            //Checking if the office ID exists
            if (findByAddress(rentalOffice.getAddress()) != null){
                rentalOffice.setId(nextIdAvailable());
-               //Setting id for the office and adding it to the array
-               //rentalOffice.setId(nextIdAvailable());
                rentalOffices.add(rentalOffice);
         }else {
                rentalOffice.setId(nextIdAvailable());
                rentalOffices.add(rentalOffice);
            }
-    }
-
-    public RentalOffice findById(Long id){
-        for (RentalOffice rentalOffice: rentalOffices) {
-            if (rentalOffice.getId().equals(id)){
-                return rentalOffice;
-            }else return null;
-        }
-        return null;
-    }
-
-    @Override
-    public RentalOffice findByAddress(String address) {
-        for (RentalOffice rentalOffice: rentalOffices) {
-            if (rentalOffice.getAddress().equals(address)){
-                return rentalOffice;
-            }else return null;
-        }
-        return null;
     }
 
     @Override
@@ -55,16 +34,56 @@ public class RentalOfficeRepository implements IRentalOfficeRepository{
     }
 
     @Override
+    public void update(RentalOffice rentalOffice) {
+        if (findById(rentalOffice.getId()) != null){
+            RentalOffice rentalOfficeToUpdate = findById(rentalOffice.getId());
+            rentalOfficeToUpdate.setAddress(rentalOffice.getAddress());
+            rentalOfficeToUpdate.setFeeForDelivery(rentalOffice.getFeeForDelivery());
+        }
+    }
+
+    @Override
+    public RentalOffice findById(Long id){
+            if (!rentalOffices.isEmpty()){
+                for (RentalOffice rentalOffice: rentalOffices) {
+                    if (rentalOffice.getId().equals(id)){
+                        return rentalOffice;
+                    }
+                }
+            }
+        return null;
+    }
+
+    @Override
     public List<RentalOffice> findAll() {
         return rentalOffices;
     }
 
     @Override
+    public List<Car> findCars(Long id) {
+        if (findById(id) !=null){
+            return findById(id).getCars();
+        }
+        return null;
+    }
+
+
+
     public Long nextIdAvailable() {
         if (!rentalOffices.isEmpty()){
             return rentalOffices.get(rentalOffices.size()-1).getId() + 1;
         }else return 1L;
     }
 
+    public RentalOffice findByAddress(String address) {
+        if (!rentalOffices.isEmpty()){
+            for (RentalOffice rentalOffice: rentalOffices) {
+                if (rentalOffice.getAddress().equals(address)){
+                    return rentalOffice;
+                }
+            }
+        }
+        return null;
+    }
 
 }

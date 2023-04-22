@@ -8,7 +8,7 @@ public class RentalOffice {
     private String address;
     private Integer feeForDelivery;
     private List<Car> cars;
-
+    
     public RentalOffice(Long id,String address, Integer feeForDelivery){
         this.id = id;
         this.address = address;
@@ -20,24 +20,14 @@ public class RentalOffice {
         this.address = address;
         this.feeForDelivery = feeForDelivery;
         this.cars = new ArrayList<>();
-        this.id = nextIdAvailable();
-    }
-
-
-    public Long nextIdAvailable() {
-        if (!cars.isEmpty()){
-            return cars.get(cars.size()-1).getId() + 1;
-        }else return 1L;
     }
 
     public RentalOffice(Integer feeForDelivery){
         this.feeForDelivery = feeForDelivery;
     }
-
     public List<Car> getCars() {
         return cars;
     }
-
     public void setCars(List<Car> cars) {
         this.cars = cars;
     }
@@ -47,21 +37,15 @@ public class RentalOffice {
     public void setAddress(String address) {
         this.address = address;
     }
-
-
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
-
     public Integer getFeeForDelivery() {
         return feeForDelivery;
     }
-
     public void setFeeForDelivery(Integer feeForDelivery) {
         this.feeForDelivery = feeForDelivery;
     }

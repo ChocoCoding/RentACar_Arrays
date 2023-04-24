@@ -14,21 +14,25 @@ public class CarRepository implements ICarRepository{
 
     @Override
     public void add(Car car) {
-            //Comprobamos si la matricula existe en el array de coches
             if (findByLicensePlate(car.getLicensePlate()) == null){
                 car.setId(nextIdAvailable());
                 cars.add(car);
-            }else System.out.println("La matricula " + car.getLicensePlate() + " ya está registrada");
+            }else System.out.println("The license plate " + car.getLicensePlate() + " is already registered");
     }
 
 
     @Override
     public void deleteById(Long id) {
-        if (findById(id).getId().equals(id)){
-            cars.remove(findById(id));
-        }
+        if (!cars.isEmpty()) {
+            for (Car car : cars) {
+                if (car.getId().equals(id)) {
+                    cars.remove(car);
+                    car.getRentalOffice().getCars().remove(car);
+                    break;
+                }
+            }
+        }else System.out.println("There are no cars added");
     }
-
     @Override
     public List<Car> findAll() {
         return cars;
@@ -47,7 +51,7 @@ public class CarRepository implements ICarRepository{
                 for (Car car: cars) {
                     if (car.getId().equals(id)){
                         return car;
-                    }else System.out.println("No se ha podido encontrar la id: " + id);
+                    }
                 }
             }
         return null;
@@ -69,8 +73,13 @@ public class CarRepository implements ICarRepository{
     public void update(Car car) {
     if (findById(car.getId())!= null){
         Car carToUpdate = findById(car.getId());
-        findById(car.getId()).setLicensePlate(car.getLicensePlate());
-        findById(car.getId()).setRentalOffice(car.getRentalOffice());
+        carToUpdate.getRentalOffice().getCars().remove(carToUpdate);
+        carToUpdate.setLicensePlate(car.getLicensePlate());
+        carToUpdate.setRentalOffice(car.getRentalOffice());
+        carToUpdate.getRentalOffice().getCars().add(carToUpdate);
+
+        //findById(car.getId()).setLicensePlate(car.getLicensePlate());
+        //findById(car.getId()).setRentalOffice(car.getRentalOffice());
     }
     }
 }

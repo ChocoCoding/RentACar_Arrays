@@ -36,4 +36,9 @@ public class CarServiceImpl implements ICarService{
     public void update(Car car) {
     repository.update(car);
     }
+
+    @Override
+    public Car findById(Long id) {
+        return repository.findById(id);
+    }
 }

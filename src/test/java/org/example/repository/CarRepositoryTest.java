@@ -18,38 +18,33 @@ class CarRepositoryTest {
         rentalRepository = new RentalOfficeRepository();
         rentalRepository.add(rentalOffice1);
         rentalRepository.add(rentalOffice2);
-        Car.newCar("ABABA",rentalOffice1);
-        Car.newCar("CBBC",rentalOffice1);
-        Car.newCar("DFFD",rentalOffice1);
-        Car.newCar("DFFD",rentalOffice2);
     }
 
     @Test
     void add() {
         Car car1 = Car.newCar("ABBA",rentalOffice1);
-        carRepository.add(rentalOffice1.getCars().get(0));
-        carRepository.add(rentalOffice1.getCars().get(1));
-        carRepository.add(rentalOffice1.getCars().get(2));
-        carRepository.add(rentalOffice2.getCars().get(0));
+        carRepository.add(car1);
         carRepository.add(car1);
 
-
-
-        carRepository.deleteById(1L);
         for (Car car: carRepository.findAll()) {
             System.out.println(car);
         }
-        Assertions.assertEquals(3, carRepository.findAll().size());
+        Assertions.assertEquals(1, carRepository.findAll().size());
+        Assertions.assertEquals(1,car1.getRentalOffice().getCars().size());
 
     }
 
-    @Test
-    void addCarToOffice() {
-
-    }
 
     @Test
     void deleteById() {
+        Car car2 = Car.newCar("BCCB",rentalOffice1);
+        Car car3 = Car.newCar("CDDC",rentalOffice1);
+
+        carRepository.add(car2);
+        carRepository.add(car3);
+        carRepository.deleteById(1L);
+        Assertions.assertEquals(1, carRepository.findAll().size());
+        Assertions.assertEquals(1,car2.getRentalOffice().getCars().size());
     }
 
     @Test
@@ -70,5 +65,6 @@ class CarRepositoryTest {
 
     @Test
     void update() {
+
     }
 }

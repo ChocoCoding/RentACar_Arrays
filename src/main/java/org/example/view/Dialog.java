@@ -44,7 +44,7 @@ public class Dialog {
                     //TODO
                 }else if(choice==0) {
                     System.out.println("Bye!!");
-                    System.exit(0);;
+                    System.exit(0);
                 } else {
                     System.err.println("[ERROR] Your option is incorrect!! Try again!!");
                 }
@@ -115,7 +115,7 @@ public class Dialog {
 
     private void carManager() {
         do {
-            System.out.println("\n************************** Client Manager ********************************");
+            System.out.println("\n************************** Car Manager ***********************************");
             System.out.println("\n\t1. Add car.\t\t\t\t4. Search Car.");
             System.out.println("\n\t2. Remove Car.\t\t\t5. See All Cars.");
             System.out.println("\n\t3. Update Car.\t\t\t0. Back.");
@@ -139,14 +139,12 @@ public class Dialog {
                     System.out.println("Car ID: ");
                     int id = scanner.nextInt();
                     scanner.nextLine();
-                    System.out.println("License Plate: ");
+                    System.out.println("New License Plate: ");
                     String licensePlate = scanner.nextLine();
-                    System.out.println("Address: ");
-                    String address = scanner.nextLine();
-                    System.out.println("Fee for delivery: ");
-                    Integer feeForDelivery = scanner.nextInt();
-                    RentalOffice rentalOffice = new RentalOffice(address,feeForDelivery);
-                    carController.update((long)id, licensePlate,rentalOffice);
+                    System.out.println(rentalOfficeController.findAll());
+                    System.out.println("New Rental Office ID: ");
+                    int idOffice = scanner.nextInt();
+                    carController.update((long)id,licensePlate,rentalOfficeController.findById((long)idOffice));
                 } else if (choice == 4) {
                     scanner.nextLine();
                     System.out.println("License Plate: ");
@@ -172,7 +170,7 @@ public class Dialog {
 
     public void clientManager(){
         do {
-            System.out.println("\n************************** Client Manager ********************************");
+            System.out.println("\n************************** Renta Office Manager **************************");
             System.out.println("\n\t1. Create Client.\t\t\t\t4. Search Client.");
             System.out.println("\n\t2. Remove Client.\t\t\t\t5. See All Clients.");
             System.out.println("\n\t3. Update Client.\t\t\t\t0. Back.");

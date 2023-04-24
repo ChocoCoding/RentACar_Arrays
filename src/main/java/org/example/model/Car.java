@@ -5,7 +5,7 @@ public class Car {
     private String licensePlate;
     private RentalOffice rentalOffice;
 
-        public Car(Long id, String licensePlate, RentalOffice rentalOffice) {
+            public Car(Long id, String licensePlate, RentalOffice rentalOffice) {
             this.id = id;
             this.licensePlate = licensePlate;
             this.rentalOffice = rentalOffice;
@@ -16,6 +16,7 @@ public class Car {
         this.rentalOffice = rentalOffice;
 
     }
+
 
     public static Car newCar(String licensePlate, RentalOffice rentalOffice){
         Car car = new Car(licensePlate,rentalOffice);
